@@ -244,4 +244,3 @@ vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 au FileType xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
-au FileType xhtml,xml so ~/.vim/ftplugin/autoclose.vim

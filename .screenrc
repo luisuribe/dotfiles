@@ -1,0 +1,81 @@
+#shell -bash
+shell -$SHELL
+
+shelltitle '$ |bash'
+
+bufferfile $HOME/.screen_exchange
+hardcopydir $HOME/.screen
+term xterm
+vbell off
+multiuser off
+#attrcolor i "+b"
+#attrcolor b "-b"
+deflogin on
+termcapinfo xterm* OL=25000
+defscrollback 25000
+
+# Prepend/append register [/] to the paste if ^a^] is pressed.
+# This lets me have autoindent modes in vi(m).
+register [ "\033:se paste\015a"
+register ] "\033:se nopaste\015a"
+bind ^] paste [.]
+
+
+hardstatus alwayslastline
+hardstatus string '%{= kG}[%{G}%H%{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%d/%m%{G}%C%A]'
+backtick 1 1200 1200 whoami
+#caption always "%3n %t%? @%u%?%? [%h]%?%=%c:%s"
+#caption always "%{=b wk} %D %d.%m %c  | %-w%{=br}%n %t%{-}%+w "
+#caption always "%{=b}%?%F%:%45=%n*%f %t%?%?%F%{r}%:%{s kk}%?%H%?%F%{-}%? %L=%-Lw%45L>%?%F%{g}%?%n*%f %t%?%F%{-}%?%+Lw%-17= %?%F%{y}%?%c %d.%m.%Y%?"
+
+# Kein Splashscreen, bitte
+startup_message off
+
+# Make the F12 (not F2!) key an alternative screen escape
+# (besides ^A).
+bindkey -k F2 command
+
+# xterm scrollbar should work with screen
+# also for scroll wheel
+termcapinfo xterm ti@:te@
+termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+termcapinfo rxvt 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+
+# Enter copy mode (PgUp/PgDn to move)
+# INSERT alternativly ALT+PgUp
+#bindkey -k kI copy
+#bindkey ^[[5;3~ copy
+
+# Paste copy buffer
+# ALT-INSERT
+bindkey "^[^[[2~" paste .
+
+# Change to left/right window in relation to current window
+# (wraps on edges) ALT-,.
+bindkey "^[," prev
+bindkey "^[." next
+
+
+# For root users, you may want to add the following instead of the above.
+# Essentially this allows me root account to be using screen easily nested
+# within my regular user's screen session.
+# ALT-;'
+# bindkey "^[;" prev
+# bindkey "^[:'" next
+
+
+# Shift current window left/right in relation to current window
+# (!broken, attempting to fix)
+# ALT-<> (for those that have trouble understanding ALT-SHIFT-,.)
+bindkey "^[<" eval number !echo $WINDOW-1|bc
+bindkey "^[>" eval number !echo $WINDOW+1|bc
+
+screen 1
+screen 2
+
+# remap w to the selectable list
+bind w windowlist -b
+bind W windows
+caption always " "                    # clear line before hardstatus
+hardstatus alwayslastline "%{= kb}[ %{B}%H:$USER %{b}][ %=%{w}%?%-Lw%?%{b}(%{W}%n*%f %t%?(%u)%?%{b})%{w}%?%+Lw%?%?%= %{b}][%{B} %l %{B}%{W}%d.%0m %{b}]"
+
