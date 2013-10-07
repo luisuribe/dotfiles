@@ -1,7 +1,9 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Sets how many lines of history VIM has to remember
 set history=700
-
-syntax on
 
 " Enable filetype plugins
 filetype plugin on
@@ -9,6 +11,16 @@ filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
+
+""use keys for navigating between tabs
+nnoremap <C-Up> gT
+nnoremap <C-Down> gt
+nnoremap <C-n>   :tabnext<CR>
+nnoremap <C-t>     :tabnew<CR>
+nnoremap <C-b>     :tabprev<CR>
+
+" Fast saving
+nmap <leader>w :w!<cr>
 
 "TAB settings.
 set tabstop=4
@@ -42,41 +54,9 @@ set shell=/bin/bash
 set lazyredraw
 set matchtime=3
 
-"Settings for Searching and Moving
-set ignorecase
-set smartcase
-set gdefault
-set incsearch
-set showmatch
-set hlsearch
-nnoremap <leader><space> :noh<cr>
-nnoremap <tab> %
-vnoremap <tab> %
+syntax on
 
-" Make Vim to handle long lines nicely.
-set wrap
-set textwidth=79
-set formatoptions=qrn1
-""set colorcolumn=79
-colorschem desert
-
-" To  show special characters in Vim
-"set list
-set listchars=tab:▸\ ,eol:¬
-
-" Make Sure that Vim returns to the same line when we reopen a file"
-augroup line_return
-    au!
-    au BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \ execute 'normal! g`"zvzz' |
-        \ endif
-augroup END
-
-nnoremap g; g;zz
-
-" " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-" nmap <M-j> mz:m+<cr>`z
-" nmap <M-k> mz:m-2<cr>`z
-" vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-" vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+set term=builtin_ansi
+if $TERM == 'screen'
+    set term=xterm
+endif
