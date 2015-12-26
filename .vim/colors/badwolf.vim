@@ -1,1 +1,0 @@
-/home/acme/code/github/badwolf/colors/badwolf.vim
