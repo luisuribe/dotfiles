@@ -1,5 +1,7 @@
 Some of my dotfiles
 
+* nvim configuration based on @juancate
+
 # Manual stuff
 
 apt install kitty
